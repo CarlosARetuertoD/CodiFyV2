@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class lista_canciones_album_album extends AppCompatActivity {
+public class lista_canciones_album_album extends MyAppCompatActivity {
 
     RecyclerView canciones_album;
     List<Item_album> list_album;
@@ -42,7 +42,7 @@ public class lista_canciones_album_album extends AppCompatActivity {
 
         canciones_album = findViewById(R.id.recy_listaCanciones);
         list_album = new ArrayList<>();
-        json = new JsonSpotify("items","https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks",
+        json = new JsonSpotify(lista_canciones_album_album.this,"https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks",
                 "BQDge21oKrU5OhmU-wyxjfGIxy_t3GuBmm4WeTiNrHMjrsroAm7lt0rMg6Nuhn0ExsbcYFb825aorqNBI68DQx9Ic13hbaTlcDAkyDiSlHf6W62Nm5qAcZTfzdpLWUHhxSSdcP8918YAYUO8-fTWfsLCJGLKcE1BJkMjjYH05oFTzQfb5Z0nttl2PlrjjJIo8HJOIsbduVkl2ZX1txXwxEPNGanlUxEzhdTo4TNKn0pR5J8Ncd2sB18NoGqgnJJOYivxzbVX7MI0-D_Yju3FcCvAL9nN3Z1u");
 
     }
