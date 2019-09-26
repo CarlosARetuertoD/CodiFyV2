@@ -5,7 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorblanco">#FFFFFF</color>
     <color name="colorTransparente">#00FFFFFF</color>
-    <color name="colorTextUp">#DCD4D4</color>
+    <color name="colorTextUp">#EEECEC</color>
     <color name="colorTextDown">#BBB6B6</color>
     <color name="backgroundcolor">#D8000000</color>
 </resources>

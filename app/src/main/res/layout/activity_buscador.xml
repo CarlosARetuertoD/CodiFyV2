@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorTransparente"
-                app:srcCompat="@drawable/ic_arrow_back" />
+                app:srcCompat="@drawable/ic_regresar" />
 
             <EditText
                 android:id="@+id/edit_busqueda"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorTransparente"
-                app:srcCompat="@drawable/ic_clear" />
+                app:srcCompat="@drawable/ic_cancelar" />
 
             <Space
                 android:layout_width="0dp"
