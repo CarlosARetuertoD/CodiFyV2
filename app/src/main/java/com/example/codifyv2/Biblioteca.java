@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +30,10 @@ public class Biblioteca extends MyAppCompatActivity{
     String user2 = "dm15a6qs15hjah6dcmet6ytjf";
     String url;
     String tokken;
+
     ImageView img_item_biblioteca;
     TextView txt_nombre_item_biblioteca;
+    ImageButton btn_busqueda;
 
     RecyclerView rv_biblioteca;
     List<Item_Biblioteca> biblioteca_data;
@@ -41,6 +44,7 @@ public class Biblioteca extends MyAppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biblioteca);
+        btn_busqueda = findViewById(R.id.btn_busqueda);
         img_item_biblioteca = findViewById(R.id.img_item_biblioteca);
         txt_nombre_item_biblioteca = findViewById(R.id.txt_nombre_item_biblioteca);
         rv_biblioteca = findViewById(R.id.rv_biblioteca);
@@ -52,6 +56,13 @@ public class Biblioteca extends MyAppCompatActivity{
         jsonSpotify = new JsonSpotify(Biblioteca.this,url,tokken);
         jsonSpotify.ExtractResponse();
         ConstruirRecycler();
+        btn_busqueda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Biblioteca.this, Buscador.class);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
     void ConstruirRecycler(){
         adapter = new BibliotecaAdapter(this, biblioteca_data);
@@ -59,7 +70,7 @@ public class Biblioteca extends MyAppCompatActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Biblioteca.this, PlayList.class);
-                intent.putExtra("id_playlist",biblioteca_data.get(rv_biblioteca.getChildAdapterPosition(view)).getId());
+                intent.putExtra("id",biblioteca_data.get(rv_biblioteca.getChildAdapterPosition(view)).getId());
                 startActivityForResult(intent, 1);
             }
         });

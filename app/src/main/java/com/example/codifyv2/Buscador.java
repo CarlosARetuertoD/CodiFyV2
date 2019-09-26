@@ -55,8 +55,35 @@ public class Buscador extends MyAppCompatActivity {
 
         tokken = getString(R.string.tokken);
         url = "https://api.spotify.com/v1/search?";
-        type = "artist";
+        type = "track";
+
         ConstruirRecycler();
+        ListenersItems();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                /*Toast.makeText(getApplicationContext(),
+                                data.getStringExtra("response"), Toast.LENGTH_SHORT).show();*/
+            }
+        }
+    }
+    void ConstruirRecycler(){
+        adapter = new BuscadorAdapter(this, busqueda_data);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Buscador.this, Reproductor.class);
+                intent.putExtra("id",busqueda_data.get(rv_busqueda.getChildAdapterPosition(view)).getIdItem());
+                startActivityForResult(intent, 1);
+            }
+        });
+        rv_busqueda.setAdapter(adapter);
+        rv_busqueda.setLayoutManager(new LinearLayoutManager(this));
+    }
+    void ListenersItems(){
         edit_busqueda.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -98,31 +125,6 @@ public class Buscador extends MyAppCompatActivity {
             }
         });
     }
-
-    void ConstruirRecycler(){
-        adapter = new BuscadorAdapter(this, busqueda_data);
-        adapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Buscador.this, Biblioteca.class);
-                intent.putExtra("id_item",busqueda_data.get(rv_busqueda.getChildAdapterPosition(view)).getIdItem());
-                startActivityForResult(intent, 1);
-            }
-        });
-        rv_busqueda.setAdapter(adapter);
-        rv_busqueda.setLayoutManager(new LinearLayoutManager(this));
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                /*Toast.makeText(getApplicationContext(),
-                                data.getStringExtra("response"), Toast.LENGTH_SHORT).show();*/
-            }
-        }
-    }
-
     public void Response(String response){
         busqueda_data.clear();
         if (type == "track") {
@@ -132,7 +134,7 @@ public class Buscador extends MyAppCompatActivity {
             ResponseArtist(response);
         }
     }
-    public void ResponseArtist(String response){
+    void ResponseArtist(String response){
         try {
             JSONObject json_data_artists = new JSONObject(response).getJSONObject("artists");
             JSONArray items = json_data_artists.getJSONArray("items");
@@ -151,7 +153,7 @@ public class Buscador extends MyAppCompatActivity {
             e.printStackTrace();
         }
     }
-    public void ResponseTracks(String response){
+    void ResponseTracks(String response){
         try {
             JSONObject json_data_artists = new JSONObject(response).getJSONObject("tracks");
             JSONArray items = json_data_artists.getJSONArray("items");

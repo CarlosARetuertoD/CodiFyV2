@@ -43,7 +43,7 @@ public class Reproductor extends MyAppCompatActivity {
 
         Intent intent = getIntent();
         tokken = getString(R.string.tokken);
-        url = "https://api.spotify.com/v1/tracks/" + intent.getStringExtra("id_song");
+        url = "https://api.spotify.com/v1/tracks/" + intent.getStringExtra("id");
 
         jsonSpotify = new JsonSpotify(Reproductor.this,url,tokken);
         jsonSpotify.ExtractResponse();

@@ -50,7 +50,7 @@ public class PlayList extends MyAppCompatActivity {
 
         Intent intent = getIntent();
         tokken = getString(R.string.tokken);
-        url = "https://api.spotify.com/v1/playlists/" + intent.getStringExtra("id_playlist");
+        url = "https://api.spotify.com/v1/playlists/" + intent.getStringExtra("id");
 
         jsonSpotify = new JsonSpotify(PlayList.this,url,tokken);
         jsonSpotify.ExtractResponse();
@@ -72,7 +72,7 @@ public class PlayList extends MyAppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PlayList.this, Reproductor.class);
-                intent.putExtra("id_song",playlist_data.get(rv_playlist.getChildAdapterPosition(view)).getId());
+                intent.putExtra("id",playlist_data.get(rv_playlist.getChildAdapterPosition(view)).getId());
                 startActivityForResult(intent, 1);
             }
         });

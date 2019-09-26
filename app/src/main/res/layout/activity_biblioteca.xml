@@ -47,5 +47,12 @@
             android:textColor="@color/colorblanco"
             android:textSize="24sp"
             android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_busqueda"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/colorTransparente"
+            app:srcCompat="@drawable/ic_search_black_24dp" />
     </LinearLayout>
 </RelativeLayout>
