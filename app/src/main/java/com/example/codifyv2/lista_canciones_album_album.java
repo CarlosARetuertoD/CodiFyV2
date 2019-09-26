@@ -1,6 +1,7 @@
 package com.example.codifyv2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,21 +32,48 @@ import java.util.List;
 import java.util.Map;
 
 public class lista_canciones_album_album extends MyAppCompatActivity {
+    String url;
+    String tokken;
 
     RecyclerView canciones_album;
-    List<Item_album> list_album;
+    List<ItemAlbum> listdatos;
     JsonSpotify json;
-
+    Adaptador_Album adaptador_album;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_canciones_album_album);
 
         canciones_album = findViewById(R.id.recy_listaCanciones);
-        list_album = new ArrayList<>();
-        json = new JsonSpotify(lista_canciones_album_album.this,"https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks",
-                "BQDge21oKrU5OhmU-wyxjfGIxy_t3GuBmm4WeTiNrHMjrsroAm7lt0rMg6Nuhn0ExsbcYFb825aorqNBI68DQx9Ic13hbaTlcDAkyDiSlHf6W62Nm5qAcZTfzdpLWUHhxSSdcP8918YAYUO8-fTWfsLCJGLKcE1BJkMjjYH05oFTzQfb5Z0nttl2PlrjjJIo8HJOIsbduVkl2ZX1txXwxEPNGanlUxEzhdTo4TNKn0pR5J8Ncd2sB18NoGqgnJJOYivxzbVX7MI0-D_Yju3FcCvAL9nN3Z1u");
 
+        canciones_album.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+
+        listdatos = new ArrayList<>();
+        tokken = getString(R.string.tokken);
+        url = "https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks";
+
+        json = new JsonSpotify(lista_canciones_album_album.this,url,tokken);
+        json.ExtractResponse();
+        adaptador_album = new Adaptador_Album(this, listdatos);
+        canciones_album.setAdapter(adaptador_album);
+    }
+    public void Response(String response){
+        try {
+            JSONObject json_data = new JSONObject(response);
+            JSONArray items = json_data.getJSONArray("items");
+            for(int i = 0; i<items.length(); i++){
+                JSONObject track = items.getJSONObject(i);
+
+                listdatos.add(new ItemAlbum(track.getString("id"),
+                        track.getString("name"),
+                        track.getString("duration_ms")));
+
+                adaptador_album.notifyDataSetChanged();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }

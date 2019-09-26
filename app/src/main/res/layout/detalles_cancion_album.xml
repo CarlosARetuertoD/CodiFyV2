@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="10dp"
-        android:layout_height="100dp"
-        android:layout_weight="0" />
-
-    <ImageView
-        android:id="@+id/img_imagenAlbumDetalle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_weight="0"
-        app:srcCompat="@mipmap/Error" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="10dp"
-        android:layout_height="100dp"
-        android:layout_weight="0" />
+    <ImageButton
+        android:id="@+id/btn_opcionesDetalles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/img_menu" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -34,9 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="bottom"
+            android:gravity="bottom|center_horizontal"
             android:text="Nombre de la cancion"
-            android:textAlignment="viewStart"
+            android:textAlignment="center"
             android:textAllCaps="true"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -47,16 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Duracion"
-            android:textAlignment="viewStart"
+            android:textAlignment="center"
             android:textAllCaps="false"
             android:textStyle="bold" />
+
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/btn_opcionesDetalles"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_weight="0"
-        android:scaleType="center"
-        app:srcCompat="@drawable/img_menu" />
 </LinearLayout>

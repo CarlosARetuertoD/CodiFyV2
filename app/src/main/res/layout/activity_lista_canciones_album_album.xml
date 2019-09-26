@@ -36,7 +36,7 @@
             android:id="@+id/img_fondoAlbum"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            app:srcCompat="@mipmap/Error" />
+            app:srcCompat="@mipmap/error_imagen" />
 
         <TextView
             android:id="@+id/txt_nombreAlbum"
