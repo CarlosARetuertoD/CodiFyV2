@@ -6,13 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -26,6 +31,7 @@ import java.util.List;
 public class Buscador extends MyAppCompatActivity {
     String url;
     String tokken;
+    String type;
 
     EditText edit_busqueda;
     ImageButton btn_back;
@@ -47,27 +53,52 @@ public class Buscador extends MyAppCompatActivity {
         rv_busqueda = findViewById(R.id.rv_busqueda);
         busqueda_data = new ArrayList<>();
 
-        busqueda_data.add(new Item_Buscador("asdasd",
-                "Love me Harder",
-                "Track",
-                "https://m.media-amazon.com/images/M/MV5BMmRhNDIyMTgtMjEwMS00ODJiLWExNDEtMTI2MDMyZjEzZmM1XkEyXkFqcGdeQXVyNDQ5MDYzMTk@._V1_.jpg"));
-        /*Intent intent = getIntent();
         tokken = getString(R.string.tokken);
-        url = "https://api.spotify.com/v1/playlists/" + intent.getStringExtra("id_playlist");
-
-        jsonSpotify = new JsonSpotify(PlayList.this,url,tokken);
-        jsonSpotify.ExtractResponse();*/
+        url = "https://api.spotify.com/v1/search?";
+        type = "artist";
         ConstruirRecycler();
+        edit_busqueda.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Uri builtURI = Uri.parse(url).buildUpon()
+                        .appendQueryParameter("q",edit_busqueda.getText().toString())
+                        .appendQueryParameter("type", type)
+                        .build();
+                jsonSpotify = new JsonSpotify(Buscador.this,builtURI.toString(),tokken);
+                jsonSpotify.ExtractResponse();
+            }
+        });
+
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edit_busqueda.setText("");
+                busqueda_data.clear();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.putExtra("response","Reproducción exitosa");
+                intent.putExtra("response","Busqueda exitosa");
                 setResult(RESULT_OK,intent);
                 finish();
             }
         });
     }
+
     void ConstruirRecycler(){
         adapter = new BuscadorAdapter(this, busqueda_data);
         adapter.setOnClickListener(new View.OnClickListener() {
@@ -93,33 +124,51 @@ public class Buscador extends MyAppCompatActivity {
     }
 
     public void Response(String response){
-        /*try {
-            JSONObject json_data = new JSONObject(response);
-            JSONObject followers = json_data.getJSONObject("followers");
-            JSONObject owner = json_data.getJSONObject("owner");
-            JSONArray images = json_data.getJSONArray("images");
-            JSONObject url = images.getJSONObject(0);
-
-            JSONObject tracks = json_data.getJSONObject("tracks");
-            JSONArray items = tracks.getJSONArray("items");
+        busqueda_data.clear();
+        if (type == "track") {
+            ResponseTracks(response);
+        }
+        if (type == "artist") {
+            ResponseArtist(response);
+        }
+    }
+    public void ResponseArtist(String response){
+        try {
+            JSONObject json_data_artists = new JSONObject(response).getJSONObject("artists");
+            JSONArray items = json_data_artists.getJSONArray("items");
             for(int i = 0; i<items.length(); i++){
-                JSONObject ObjectPlaylist = items.getJSONObject(i);
-                JSONObject track = ObjectPlaylist.getJSONObject("track");
-                JSONObject artista = track.getJSONArray("artists").getJSONObject(0);
-                JSONObject imagessong = track.getJSONObject("album").getJSONArray("images").getJSONObject(2);
-                playlist_data.add(new Item_Playlist(track.getString("id"),
-                        track.getString("name"),
-                        artista.getString("name"),
-                        imagessong.getString("url")));
+                JSONObject item = items.getJSONObject(i);
+                JSONObject images = item.getJSONArray("images").getJSONObject(2);
+                busqueda_data.add(new Item_Buscador(item.getString("id"),
+                        item.getString("name"),
+                        item.getString("type"),
+                        images.getString("url")
+                ));
                 adapter.notifyDataSetChanged();
             }
-            Glide.with(this).load(url.getString("url")).into(img_playlist);
-            txt_nombreplaylist.setText(json_data.getString("name"));
-            txt_propietario.setText("De " + owner.getString("display_name"));
-            txt_followers.setText(followers.getString("total") + " seguidores");
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
+    }
+    public void ResponseTracks(String response){
+        try {
+            JSONObject json_data_artists = new JSONObject(response).getJSONObject("tracks");
+            JSONArray items = json_data_artists.getJSONArray("items");
+            for(int i = 0; i<items.length(); i++){
+                JSONObject item = items.getJSONObject(i);
+                JSONObject images = item.getJSONObject("album").getJSONArray("images").getJSONObject(2);
+                JSONObject artist = item.getJSONArray("artists").getJSONObject(0);
+                busqueda_data.add(new Item_Buscador(item.getString("id"),
+                        item.getString("name"),
+                        artist.getString("name")+ "/" + item.getString("type"),
+                        images.getString("url")
+                        ));
+                adapter.notifyDataSetChanged();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
