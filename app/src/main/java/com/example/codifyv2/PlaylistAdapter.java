@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,5 +53,15 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistHolder> implem
             listener.onClick(view);
         }
 
+    }
+}
+class PlaylistHolder extends RecyclerView.ViewHolder {
+    ImageView img_album;
+    TextView txt_nombrecancion, txt_artistacancion;
+    public PlaylistHolder(@NonNull View itemView) {
+        super(itemView);
+        img_album = itemView.findViewById(R.id.img_albumcancion);
+        txt_nombrecancion = itemView.findViewById(R.id.txt_nombrecancion);
+        txt_artistacancion = itemView.findViewById(R.id.txt_artistacancion);
     }
 }
