@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".lista_albums_artista_album"></activity>
         <activity android:name=".Biblioteca" />
         <activity android:name=".lista_canciones_album_album">
             <intent-filter>

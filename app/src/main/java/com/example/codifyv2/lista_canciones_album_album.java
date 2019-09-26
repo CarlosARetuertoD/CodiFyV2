@@ -33,10 +33,15 @@ import java.util.Map;
 
 public class lista_canciones_album_album extends MyAppCompatActivity {
     String url;
+
     String tokken;
 
+    TextView artista;
+
     RecyclerView canciones_album;
+
     List<ItemAlbum> listdatos;
+
     JsonSpotify json;
     Adaptador_Album adaptador_album;
     @Override
@@ -44,13 +49,15 @@ public class lista_canciones_album_album extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_canciones_album_album);
 
+        artista = findViewById(R.id.txt_nombreArtista);
+
         canciones_album = findViewById(R.id.recy_listaCanciones);
 
         canciones_album.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
         listdatos = new ArrayList<>();
         tokken = getString(R.string.tokken);
-        url = "https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks";
+        url = "https://api.spotify.com/v1/albums/63irJwZoWLRUc1lBKtuxmQ/tracks";
 
         json = new JsonSpotify(lista_canciones_album_album.this,url,tokken);
         json.ExtractResponse();
@@ -61,19 +68,19 @@ public class lista_canciones_album_album extends MyAppCompatActivity {
         try {
             JSONObject json_data = new JSONObject(response);
             JSONArray items = json_data.getJSONArray("items");
+
             for(int i = 0; i<items.length(); i++){
                 JSONObject track = items.getJSONObject(i);
 
                 listdatos.add(new ItemAlbum(track.getString("id"),
                         track.getString("name"),
                         track.getString("duration_ms")));
-
                 adaptador_album.notifyDataSetChanged();
+
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
 }

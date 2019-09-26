@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Adaptador_Album extends RecyclerView.Adapter<Adaptador_Album.ViewHolderDatos> {
     Context c;
@@ -37,6 +39,7 @@ public class Adaptador_Album extends RecyclerView.Adapter<Adaptador_Album.ViewHo
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
         holder.asignarNombreCancion(Listdatos.get(position).getNombreAlbum());
         holder.asignarDuracion(Listdatos.get(position).getDuracionAlbum());
+
     }
 
     @Override
@@ -60,7 +63,12 @@ public class Adaptador_Album extends RecyclerView.Adapter<Adaptador_Album.ViewHo
         }
 
         public void asignarDuracion(String duracion) {
-            txt_duracionCancion.setText(duracion);
+            int minutos = Integer.parseInt(duracion);
+            int segundos = Integer.parseInt(duracion);
+            minutos = (int) TimeUnit.MILLISECONDS.toMinutes(minutos);
+            segundos = (int) TimeUnit.MILLISECONDS.toSeconds(segundos);
+
+            txt_duracionCancion.setText(duracion= String.valueOf(minutos+":"+(segundos-(minutos*60))));
         }
     }
 }
