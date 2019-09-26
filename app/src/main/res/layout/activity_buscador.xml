@@ -75,7 +75,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_playlist"
+            android:id="@+id/rv_busqueda"
             android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
