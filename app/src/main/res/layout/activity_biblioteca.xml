@@ -15,61 +15,77 @@
         android:background="@drawable/img_background"
         android:scaleType="centerCrop" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundcolor"
-        android:orientation="vertical">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <TextView
-            android:id="@+id/tus_playlist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tus Playlist"
-            android:textAlignment="center"
-            android:textColor="@color/colorblanco"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_biblioteca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbarSize="0dp"
-            android:scrollbars="horizontal" />
-
-        <TextView
-            android:id="@+id/tus_artistas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tus Artistas"
-            android:textAlignment="center"
-            android:textColor="@color/colorblanco"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_artistas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbarSize="0dp"
-            android:scrollbars="horizontal" />
+        android:background="@color/backgroundcolor">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/tus_playlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tus Playlist"
+                android:textAlignment="center"
+                android:textColor="@color/colorblanco"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_biblioteca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="0dp"
+                android:scrollbars="horizontal" />
+
+            <TextView
+                android:id="@+id/tus_artistas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tus Artistas"
+                android:textAlignment="center"
+                android:textColor="@color/colorblanco"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_artistas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="0dp"
+                android:scrollbars="horizontal" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageButton
                 android:id="@+id/btn_perfil"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
                 android:background="@color/colorTransparente"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_busqueda"
+                app:layout_constraintEnd_toStartOf="@+id/btn_busqueda"
+                app:layout_constraintTop_toTopOf="@+id/btn_busqueda"
                 app:srcCompat="@drawable/ic_perfil" />
 
             <ImageButton
@@ -77,9 +93,42 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@color/colorTransparente"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.531"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_busqueda" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buscar"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextUp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/btn_busqueda"
+                app:layout_constraintStart_toStartOf="@+id/btn_busqueda"
+                app:layout_constraintTop_toBottomOf="@+id/btn_busqueda" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perfil"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextUp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/btn_perfil"
+                app:layout_constraintStart_toStartOf="@+id/btn_perfil"
+                app:layout_constraintTop_toBottomOf="@+id/btn_perfil" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </RelativeLayout>
