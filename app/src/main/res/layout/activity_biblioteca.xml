@@ -20,59 +20,101 @@
         android:layout_height="match_parent"
         android:background="@color/backgroundcolor">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:id="@+id/tus_playlist"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tus Playlist"
-                android:textAlignment="center"
-                android:textColor="@color/colorblanco"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_biblioteca"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbarSize="0dp"
-                android:scrollbars="horizontal" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
 
-            <TextView
-                android:id="@+id/tus_artistas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tus Artistas"
-                android:textAlignment="center"
-                android:textColor="@color/colorblanco"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tus_playlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tus Playlist"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorblanco"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_artistas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbarSize="0dp"
-                android:scrollbars="horizontal" >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_biblioteca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbarSize="0dp"
+                    android:scrollbars="horizontal" />
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:id="@+id/tus_artistas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tus Artistas"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorblanco"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_artistas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbarSize="0dp"
+                    android:scrollbars="horizontal">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/tus_albumes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tus Albumes"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorblanco"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_albums"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbarSize="0dp"
+                    android:scrollbars="horizontal" />
+
+                <TextView
+                    android:id="@+id/tus_me_gusta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tus Me Gusta"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorblanco"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_tus_me_gusta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbarSize="0dp"
+                    android:scrollbars="horizontal" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
+
+            </LinearLayout>
+        </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
+            android:background="@color/backgroundlayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

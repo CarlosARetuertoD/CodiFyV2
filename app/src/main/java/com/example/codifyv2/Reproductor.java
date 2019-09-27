@@ -3,6 +3,7 @@ package com.example.codifyv2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +22,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Reproductor extends MyAppCompatActivity {
     String url;
     String tokken;
-
+    String urlMusic;
     TextView txt_namesong;
     TextView txt_artist;
     TextView txt_song_end_time;
 
     ImageView img_background;
     CircleImageView img_album;
-
+    MediaPlayer player;
     Button btn_play, btn_estado ,btn_next,btn_previous,btn_addFavoritos,btn_back;
 
     int bnd_reproduction = 0;// 0-Continua 1-Aleatorio 2-Repetir
@@ -40,7 +41,6 @@ public class Reproductor extends MyAppCompatActivity {
         setContentView(R.layout.activity_reproductor);
         Iniciar_items();
         BotonesListener();
-
         Intent intent = getIntent();
         tokken = getString(R.string.tokken);
         url = "https://api.spotify.com/v1/tracks/" + intent.getStringExtra("id");
@@ -80,12 +80,19 @@ public class Reproductor extends MyAppCompatActivity {
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bnd_reproduction_status == false) {
-                    bnd_reproduction_status = true;
-                    btn_play.setBackgroundResource(R.drawable.img_pause);
-                }else{
-                    bnd_reproduction_status = false;
-                    btn_play.setBackgroundResource(R.drawable.img_play);
+                player = new MediaPlayer();
+                try {
+                    if(!player.isPlaying()) {
+                        player.setDataSource(urlMusic);
+                        player.prepare();
+                        player.start();
+                        btn_play.setBackgroundResource(R.drawable.img_pause);
+                    }else{
+                        player.pause();
+                        btn_play.setBackgroundResource(R.drawable.img_play);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -144,7 +151,7 @@ public class Reproductor extends MyAppCompatActivity {
             txt_namesong.setText(json_data.getString("name"));
             txt_artist.setText(name_artista.getString("name"));
             txt_song_end_time.setText(String.valueOf(json_data.getLong("duration_ms") / 60));
-
+            urlMusic = json_data.getString("preview_url");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -8,4 +8,5 @@
     <color name="colorTextUp">#EEECEC</color>
     <color name="colorTextDown">#BBB6B6</color>
     <color name="backgroundcolor">#D8000000</color>
+    <color name="backgroundlayout">#383131</color>
 </resources>
