@@ -12,6 +12,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,10 +28,8 @@ public class Buscador extends MyAppCompatActivity {
     String tokken;
     String type;
 
-    EditText edit_busqueda;
     ImageButton btn_back;
-    ImageButton btn_clear;
-
+    SearchView sv_buscador;
     RecyclerView rv_busqueda;
     List<Item_Buscador> busqueda_data;
     BuscadorAdapter adapter;
@@ -38,10 +40,9 @@ public class Buscador extends MyAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscador);
 
-        edit_busqueda = findViewById(R.id.edit_busqueda);
         btn_back = findViewById(R.id.btn_back_buscador);
-        btn_clear = findViewById(R.id.btn_limpiar_busqueda);
         rv_busqueda = findViewById(R.id.rv_busqueda);
+        sv_buscador = findViewById(R.id.sv_buscador);
         busqueda_data = new ArrayList<>();
 
         tokken = getString(R.string.tokken);
@@ -56,8 +57,6 @@ public class Buscador extends MyAppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                /*Toast.makeText(getApplicationContext(),
-                                data.getStringExtra("response"), Toast.LENGTH_SHORT).show();*/
             }
         }
     }
@@ -75,37 +74,37 @@ public class Buscador extends MyAppCompatActivity {
         rv_busqueda.setLayoutManager(new LinearLayoutManager(this));
     }
     void ListenersItems(){
-        edit_busqueda.addTextChangedListener(new TextWatcher() {
+        sv_buscador.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+            public boolean onClose() {
+                busqueda_data.clear();
+                adapter.notifyDataSetChanged();
+                return false;
             }
-
+        });
+        sv_buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public boolean onQueryTextSubmit(String s) {
                 Uri builtURI = Uri.parse(url).buildUpon()
-                        .appendQueryParameter("q",edit_busqueda.getText().toString())
+                        .appendQueryParameter("q",s)
                         .appendQueryParameter("type", type)
                         .build();
                 jsonSpotify = new JsonSpotify(Buscador.this,builtURI.toString(),tokken);
                 jsonSpotify.ExtractResponse();
+                return false;
             }
-        });
 
-        btn_clear.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                edit_busqueda.setText("");
-                busqueda_data.clear();
-                adapter.notifyDataSetChanged();
+            public boolean onQueryTextChange(String s) {
+                Uri builtURI = Uri.parse(url).buildUpon()
+                        .appendQueryParameter("q",s)
+                        .appendQueryParameter("type", type)
+                        .build();
+                jsonSpotify = new JsonSpotify(Buscador.this,builtURI.toString(),tokken);
+                jsonSpotify.ExtractResponse();
+                return false;
             }
         });
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

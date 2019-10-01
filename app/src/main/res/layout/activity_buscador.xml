@@ -37,6 +37,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5" />
 
+            <SearchView
+                android:id="@+id/sv_buscador"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:queryHint="Buscar">
+
+            </SearchView>
+
             <ImageButton
                 android:id="@+id/btn_back_buscador"
                 android:layout_width="0dp"
@@ -44,28 +53,6 @@
                 android:layout_weight="1"
                 android:background="@color/colorTransparente"
                 app:srcCompat="@drawable/ic_regresar" />
-
-            <EditText
-                android:id="@+id/edit_busqueda"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:ems="10"
-                android:hint="Buscar"
-                android:inputType="textPersonName"
-                android:textAlignment="center"
-                android:textColor="@color/colorTextUp"
-                android:textColorHighlight="@color/colorblanco"
-                android:textColorHint="@color/colorTextUp"
-                android:textColorLink="@color/colorblanco" />
-
-            <ImageButton
-                android:id="@+id/btn_limpiar_busqueda"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorTransparente"
-                app:srcCompat="@drawable/ic_cancelar" />
 
             <Space
                 android:layout_width="0dp"
